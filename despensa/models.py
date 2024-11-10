@@ -78,6 +78,8 @@ class ProdutoQuantidade(models.Model):
 
 #relacionamento entre despensa e produto
 class QuantidadePadrao(models.Model):
+    class Meta:
+        unique_together = ['despensa','produto']
     qtd_min = models.IntegerField(min_value=0, blank=True)
     qtd_med = models.IntegerField(min_value=0, blank=True)
     qtd_max = models.IntegerField(min_value=0, blank=True)
@@ -86,8 +88,9 @@ class QuantidadePadrao(models.Model):
 
 #classes de historico
 class Consumo(models.Model):
+    class Meta:
+        unique_together = ['item','usuario']
     data_hora = models.DateTimeField(auto_now_add=True)
- 
     item = ForeignKey(Item, on_delete=models.CASCADE)
     usuario = ForeignKey(Usuario, on_delete=models.SET_NULL) #deletar o usuario nao implica que o item nao tenha sido consumido
 
@@ -96,14 +99,15 @@ class Transferencia(models.Model):
         SOLICITADO = 'S'
         CONFIRMADO = 'C'
         NEGADO = 'N'
-
     situacao = models.CharField(max_length=1, choices=SituacaoChoices, default=SituacaoChoices.SOLICITADO)
     data_hora = models.DateTimeField(auto_now_add=True)
- 
     origem = ForeignKey(Despensa,on_delete=models.CASCADE)
     destino = ForeignKey(Despensa,on_delete=models.CASCADE)
     usuario = ForeignKey(Usuario, on_delete=models.SET_NULL)
 
+class ItensTransferidos(models.Model):
+    item = ForeignKey(Item,on_delete=models.CASCADE)
+    transferencia = ForeignKey(Transferencia, on_delete=models.CASCADE)
 #models abstratas
 #pode estar em uma app diferente
 # class Notificador(models.Model):
