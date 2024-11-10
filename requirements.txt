@@ -2,3 +2,4 @@ django
 environs
 djangorestframework
 django-allauth
+django-jazzmin

@@ -1,3 +1,128 @@
 from django.db import models
+from django.db.models import ForeignKey
+from django.utils import timezone
+from django.core.exceptions import ValidationError 
 
-# Create your models here.
+
+class Usuario(models.Model):
+    pass
+
+class Categoria(models.Model):
+    nome = models.CharField(unique=True)
+    def __str__(self):
+        return self.nome
+
+class Produto(models.Model):
+    class PrioridadeChoices(models.TextChoices):
+        BAIXA = 'S1', 'Baixa'
+        BAIXA_MEDIA = 'S2', 'Baixa Média'
+        MEDIA = 'S3', 'Média'
+        MEDIA_ALTA = 'S4', 'Média Alta'
+        ALTA = 'S5', 'Alta'
+    nome = models.CharField(max_length=127, unique=True)
+    categoria = ForeignKey(Categoria, on_delete=models.SET_NULL)
+    prior = models.CharField(max_length=2, min_value=1, choices=PrioridadeChoices, default=PrioridadeChoices.MEDIA)#era Integer, mas ocupa mais espaço em disco
+    #prior = ForeignKey(Prioridade, on_delete=models.SET_NULL)
+    def __str__(self):
+        return self.name
+
+#model da Despensa
+class Despensa(models.Model):
+    descricao = models.CharField('Descrição Breve',max_length=255)
+    categorias = models.ManyToManyField(Categoria) #categorias_permitidas
+    def __str__(self):
+        return self.descricao
+
+#acesso entre usuario e despensa:
+# class NivelPermissao(models.Model):
+#     pass
+
+#Models para o item
+class Mercado(models.Model):
+    nome = models.CharField(max_length=50, unique=True)
+    def __str__(self): 
+        return self.nome
+
+class Marca(models.Model):
+    nome = models.CharField(max_length=50, unique=True)
+    def __str__(self): 
+        return self.nome
+
+class Item(models.Model):
+    data_vencimento = models.DateTimeField("Data de Vencimento")
+    data_compra = models.DateTimeField(default=timezone.now())
+    preco = models.FloatField(min_value=0)
+    consumido = models.BooleanField(default=False)
+    produto = ForeignKey(Produto, on_delete=models.PROTECT)
+    mercado = ForeignKey(Mercado, on_delete=models.PROTECT)
+    comprador = ForeignKey(Usuario, on_delete=models.PROTECT)
+    despensa = ForeignKey(Despensa, on_delete=models.PROTECT)
+
+    def clean(self):
+        categoria_id = self.produto.categoria.id
+        despensa_categorias = self.despensa.categorias
+        if not despensa_categorias.filter(id=categoria_id).exists():
+            raise ValidationError('A despensa não permite tal Categoria de Produto')
+
+#models para lista de compras
+class ListaCompra(models.Model):
+    usuario = ForeignKey(Usuario, on_delete=models.CASCADE)
+    destino = ForeignKey(Despensa, on_delete=models.CASCADE)  #tvz PROTECT seja melhor
+
+class ProdutoQuantidade(models.Model):
+    qtd = models.IntegerField(min_value=1)
+    produto = ForeignKey(Produto, on_delete=models.PROTECT)
+    ListaCompra = ForeignKey(ListaCompra, on_delete=models.CASCADE)
+    def __str__(self):
+        return f'{self.produto}: {self.qtd} unidades'
+
+#relacionamento entre despensa e produto
+class QuantidadePadrao(models.Model):
+    qtd_min = models.IntegerField(min_value=0, blank=True)
+    qtd_med = models.IntegerField(min_value=0, blank=True)
+    qtd_max = models.IntegerField(min_value=0, blank=True)
+    despensa = ForeignKey(Despensa, on_delete=models.CASCADE) 
+    produto = ForeignKey(Produto, on_delete=models.CASCADE)
+
+#classes de historico
+class Consumo(models.Model):
+    data_hora = models.DateTimeField(auto_now_add=True)
+ 
+    item = ForeignKey(Item, on_delete=models.CASCADE)
+    usuario = ForeignKey(Usuario, on_delete=models.SET_NULL) #deletar o usuario nao implica que o item nao tenha sido consumido
+
+class Transferencia(models.Model):
+    class SituacaoChoices(models.TextChoices):
+        SOLICITADO = 'S'
+        CONFIRMADO = 'C'
+        NEGADO = 'N'
+
+    situacao = models.CharField(max_length=1, choices=SituacaoChoices, default=SituacaoChoices.SOLICITADO)
+    data_hora = models.DateTimeField(auto_now_add=True)
+ 
+    origem = ForeignKey(Despensa,on_delete=models.CASCADE)
+    destino = ForeignKey(Despensa,on_delete=models.CASCADE)
+    usuario = ForeignKey(Usuario, on_delete=models.SET_NULL)
+
+#models abstratas
+#pode estar em uma app diferente
+# class Notificador(models.Model):
+#     pass
+
+# class Gerador(models.Model):
+#     pass
+
+
+
+
+
+#Models para o produto (deprecated)
+# class Prioridade(models.Model):
+#     nome = models.CharField("Prioridade", max_length=20, unique=True)
+#     ordem = models.IntegerField(min_value=1,max_value=5,unique=True)
+
+#     class Meta:
+#         abstract = True
+
+#     def __str__(self):
+#         return self.nome
