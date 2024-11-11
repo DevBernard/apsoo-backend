@@ -1,9 +1,18 @@
 from django.db import models
 
+from django.contrib.auth import get_backends
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+
+def _user_get_permissions(user, obj, from_name):
+    permissions = set()
+    name = "get_%s_permissions" % from_name
+    for backend in get_backends():
+        if hasattr(backend, name):
+            permissions.update(getattr(backend, name)(user, obj))
+    return permissions
 
 
 class UsuarioManager(BaseUserManager):
@@ -28,7 +37,7 @@ class UsuarioManager(BaseUserManager):
         return self._create_user(email, password, is_staff=True, is_admin=True)
         
 
-class Usuario(AbstractBaseUser):
+class Usuario(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField("E-mail", unique=True)
     date_joined = models.DateTimeField("Criado em", default=timezone.now)
 
@@ -61,3 +70,16 @@ class Usuario(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True 
+
+    # def get_user_permissions(self, obj=None):
+    #     return _user_get_permissions(self, obj, "user")
+
+    # def get_group_permissions(self, obj=None):
+    #     return _user_get_permissions(self, obj, "group")
+
+    # def get_all_permissions(self, obj=None):
+    #     return _user_get_permissions(self, obj, "all")
+    
+    @property
+    def is_superuser(self):
+        return self.is_admin
