@@ -32,8 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'jazzmin',
-    'despensa',
-    'rest_framework',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,7 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'account',
+    'despensa',
+    'rest_framework',
 ]
+
+AUTH_USER_MODEL = 'account.Usuario'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
