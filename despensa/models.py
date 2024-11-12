@@ -58,6 +58,9 @@ class Item(models.Model):
     comprador = ForeignKey(Usuario, on_delete=models.PROTECT)
     despensa = ForeignKey(Despensa, on_delete=models.PROTECT)
 
+    class Meta:
+        verbose_name_plural = 'Itens'
+
     def clean(self):
         categoria_id = self.produto.categoria.id
         despensa_categorias = self.despensa.categorias
@@ -77,9 +80,10 @@ class ProdutoQuantidade(models.Model):
         return f'{self.produto}: {self.qtd} unidades'
 
 #relacionamento entre despensa e produto
-class QuantidadePadrao(models.Model):
+class QuantidadePadrao(models.Model): 
     class Meta:
         unique_together = ['despensa','produto']
+        verbose_name_plural = "Quantidades Padrão"
     qtd_min = models.PositiveIntegerField( blank=True)
     qtd_med = models.PositiveIntegerField( blank=True)
     qtd_max = models.PositiveIntegerField( blank=True)
@@ -117,25 +121,3 @@ class Transferencia(models.Model):
 class ItensTransferidos(models.Model):
     item = ForeignKey(Item,on_delete=models.CASCADE)
     transferencia = ForeignKey(Transferencia, on_delete=models.CASCADE)
-#models abstratas
-#pode estar em uma app diferente
-# class Notificador(models.Model):
-#     pass
-
-# class Gerador(models.Model):
-#     pass
-
-
-
-
-
-#Models para o produto (deprecated)
-# class Prioridade(models.Model):
-#     nome = models.CharField("Prioridade", max_length=20, unique=True)
-#     ordem = models.PositiveIntegerField(unique=True)
-
-#     class Meta:
-#         abstract = True
-
-#     def __str__(self):
-#         return self.nome
