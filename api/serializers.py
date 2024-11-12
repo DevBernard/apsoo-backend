@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from account.models import Usuario
 
 from despensa.models import (
     Categoria,
@@ -43,7 +42,7 @@ class MarcaSerializer(serializers.ModelSerializer):
         model = Marca
         fields = ['nome']
 
-class Item(serializers.ModelSerializer):
+class ItemSerializer(serializers.ModelSerializer):
     produto = ProdutoSerializer()
     mercado = MercadoSerializer()
     comprador = serializers.StringRelatedField()
@@ -61,7 +60,7 @@ class Item(serializers.ModelSerializer):
 
 class ListaCompraSerializer(serializers.ModelSerializer):
     usuario = serializers.StringRelatedField()
-    destino = DespensaSerializer(queryset=Despensa.objects.only('descricao'))
+    destino = DespensaSerializer() #queryset=Despensa.objects.only('descricao')
 
     class Meta:
         model = ListaCompra
@@ -74,7 +73,7 @@ class ProdutoQuantidadeSerializer(serializers.ModelSerializer):
         model = ProdutoQuantidade
         fields = ['lista_compra','qtd','produto']
 
-class QuantidadePadrao(serializers.ModelSerializer):
+class QuantidadePadraoSerializer(serializers.ModelSerializer):
     despensa = DespensaSerializer()
     produto = ProdutoSerializer()
 
