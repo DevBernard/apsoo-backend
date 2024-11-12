@@ -9,6 +9,7 @@ from account.models import Usuario
 
 class Categoria(models.Model):
     nome = models.CharField(unique=True, max_length=32)
+
     def __str__(self):
         return self.nome
 
@@ -75,7 +76,7 @@ class ListaCompra(models.Model):
 class ProdutoQuantidade(models.Model):
     qtd = models.PositiveIntegerField()
     produto = ForeignKey(Produto, on_delete=models.PROTECT)
-    ListaCompra = ForeignKey(ListaCompra, on_delete=models.CASCADE)
+    lista_compra = ForeignKey(ListaCompra, on_delete=models.CASCADE)
     def __str__(self):
         return f'{self.produto}: {self.qtd} unidades'
 
