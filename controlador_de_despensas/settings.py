@@ -25,8 +25,15 @@ SECRET_KEY = 'django-insecure-#apj9=ov1@%i%if1shj93d^nhng_ax84(*do@11h_xm-y0nfrp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '.ngrok-free.app',
+    'localhost',
+    '127.0.0.1',
+]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.ngrok-free.app'
+]
 
 # Application definition
 
@@ -35,6 +42,7 @@ INSTALLED_APPS = [
     'account',
     'despensa',
     'rest_framework',
+    'drf_spectacular',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -133,5 +141,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly'
-    ]
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Documentando a API do projeto',
+    'DESCRIPTION': 'Um gerenciador de despensas',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }

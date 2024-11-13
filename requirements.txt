@@ -3,3 +3,4 @@ environs
 djangorestframework
 django-allauth
 django-jazzmin
+drf-spectacular

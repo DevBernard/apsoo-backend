@@ -25,12 +25,20 @@ class ProdutoSerializer(serializers.ModelSerializer):
         model = Produto
         fields = ['nome','categoria','prior']
 
+class QuantidadePadraoSerializer(serializers.ModelSerializer):
+    produto = ProdutoSerializer()
+
+    class Meta:
+        model = QuantidadePadrao
+        fields = ['produto','qtd_min','qtd_med','qtd_max']
+
 class DespensaSerializer(serializers.ModelSerializer):
     categorias = CategoriaSerializer(many=True)
+    quantidadepadrao_set = QuantidadePadraoSerializer(many=True)
     
     class Meta:
         model = Despensa
-        fields = ['descricao','categorias']
+        fields = ['quantidadepadrao_set','descricao','categorias']
 
 class MercadoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,6 +57,7 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = [
+            'produto',
             'data_vencimento',
             'data_compra',
             'preco',
@@ -58,25 +67,17 @@ class ItemSerializer(serializers.ModelSerializer):
             'despensa',
             ]
 
+class ProdutoQuantidadeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProdutoQuantidade
+        fields = ['qtd','produto']
+
 class ListaCompraSerializer(serializers.ModelSerializer):
     usuario = serializers.StringRelatedField()
     destino = DespensaSerializer() #queryset=Despensa.objects.only('descricao')
+    produtoquantidade_set = ProdutoQuantidadeSerializer(many=True)
 
     class Meta:
         model = ListaCompra
-        fields = ['usuario','destino']
+        fields = ['produtoquantidade_set','usuario','destino']
 
-class ProdutoQuantidadeSerializer(serializers.ModelSerializer):
-    lista_compra = ListaCompraSerializer()
-    
-    class Meta:
-        model = ProdutoQuantidade
-        fields = ['lista_compra','qtd','produto']
-
-class QuantidadePadraoSerializer(serializers.ModelSerializer):
-    despensa = DespensaSerializer()
-    produto = ProdutoSerializer()
-
-    class Meta:
-        model = QuantidadePadrao
-        fields = ['despensa','produto','qtd_min','qtd_med','qtd_max']

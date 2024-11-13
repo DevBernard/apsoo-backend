@@ -25,7 +25,7 @@ class Produto(models.Model):
     prior = models.CharField(max_length=2, choices=PrioridadeChoices, default=PrioridadeChoices.MEDIA)#era Integer, mas ocupa mais espaço em disco
     #prior = ForeignKey(Prioridade, on_delete=models.SET_NULL, null=True)
     def __str__(self):
-        return self.name
+        return self.nome
 
 #model da Despensa
 class Despensa(models.Model):
@@ -77,6 +77,10 @@ class ProdutoQuantidade(models.Model):
     qtd = models.PositiveIntegerField()
     produto = ForeignKey(Produto, on_delete=models.PROTECT)
     lista_compra = ForeignKey(ListaCompra, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = [['lista_compra','produto']]
+
     def __str__(self):
         return f'{self.produto}: {self.qtd} unidades'
 

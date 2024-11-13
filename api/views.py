@@ -38,3 +38,41 @@ class ListProdutoQuantidades(generics.ListAPIView):
 class ListQuantidadesPadrao(generics.ListAPIView):
     queryset = QuantidadePadrao.objects.all()
     serializer_class = QuantidadePadraoSerializer
+
+
+
+class DetailCategoria(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Categoria.objects.all()
+    serializer_class = CategoriaSerializer
+
+class DetailProduto(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Produto.objects.all()
+    serializer_class = ProdutoSerializer
+
+class DetailDespensa(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Despensa.objects.all()
+    serializer_class = DespensaSerializer
+
+class DetailMercado(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Mercado.objects.all()
+    serializer_class = MercadoSerializer
+
+class DetailMarca(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Marca.objects.all()
+    serializer_class = MarcaSerializer
+
+class DetailItem(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+
+class DetailListaCompra(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ListaCompra.objects.all()
+    serializer_class = ListaCompraSerializer
+
+class DetailProdutoQuantidade(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ProdutoQuantidade.objects.all()
+    serializer_class = ProdutoQuantidadeSerializer
+
+class DetailQuantidadePadrao(generics.RetrieveUpdateDestroyAPIView):
+    queryset = QuantidadePadrao.objects.all()
+    serializer_class = QuantidadePadraoSerializer
