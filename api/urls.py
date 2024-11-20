@@ -16,6 +16,7 @@ urlpatterns = [
     path('categoria/<int:pk>', views.DetailCategoria.as_view(), name= 'Categoria'),
     path('produto/<int:pk>', views.DetailProduto.as_view(), name= 'Produto'),
     path('despensa/<int:pk>', views.DetailDespensa.as_view(), name= 'Despensa'),
+    path('despensa-itens/<int:pk>',views.DetailDespensaItens.as_view(), name = 'Itens de uma Despensa'),
     path('mercado/<int:pk>', views.DetailMercado.as_view(), name= 'Mercado'),
     path('marca/<int:pk>', views.DetailMarca.as_view(), name= 'Marca'),
     path('item/<int:pk>', views.DetailItem.as_view(), name= 'Item'),

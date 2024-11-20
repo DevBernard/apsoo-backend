@@ -76,3 +76,7 @@ class DetailProdutoQuantidade(generics.RetrieveUpdateDestroyAPIView):
 class DetailQuantidadePadrao(generics.RetrieveUpdateDestroyAPIView):
     queryset = QuantidadePadrao.objects.all()
     serializer_class = QuantidadePadraoSerializer
+
+class DetailDespensaItens(generics.RetrieveAPIView):
+    queryset = Despensa.objects.all()
+    serializer_class = DespensaItensSerializer

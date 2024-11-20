@@ -4,3 +4,4 @@ djangorestframework
 django-allauth
 django-jazzmin
 drf-spectacular
+django-cors-headers

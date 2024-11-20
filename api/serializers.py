@@ -15,7 +15,7 @@ from despensa.models import (
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
-        fields = ['nome']
+        fields = ['id','nome']
 
 class ProdutoSerializer(serializers.ModelSerializer):
     categoria = CategoriaSerializer()
@@ -23,14 +23,14 @@ class ProdutoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Produto
-        fields = ['nome','categoria','prior']
+        fields = ['id','nome','categoria','prior']
 
 class QuantidadePadraoSerializer(serializers.ModelSerializer):
     produto = ProdutoSerializer()
 
     class Meta:
         model = QuantidadePadrao
-        fields = ['produto','qtd_min','qtd_med','qtd_max']
+        fields = ['id','produto','qtd_min','qtd_med','qtd_max']
 
 class DespensaSerializer(serializers.ModelSerializer):
     categorias = CategoriaSerializer(many=True)
@@ -38,17 +38,17 @@ class DespensaSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Despensa
-        fields = ['quantidadepadrao_set','descricao','categorias']
+        fields = ['id','quantidadepadrao_set','descricao','categorias']
 
 class MercadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mercado
-        fields = ['nome']
+        fields = ['id','nome']
 
 class MarcaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Marca
-        fields = ['nome']
+        fields = ['id','nome']
 
 class ItemSerializer(serializers.ModelSerializer):
     produto = ProdutoSerializer()
@@ -56,7 +56,7 @@ class ItemSerializer(serializers.ModelSerializer):
     comprador = serializers.StringRelatedField()
     class Meta:
         model = Item
-        fields = [
+        fields = ['id',
             'produto',
             'data_vencimento',
             'data_compra',
@@ -67,10 +67,16 @@ class ItemSerializer(serializers.ModelSerializer):
             'despensa',
             ]
 
+class DespensaItensSerializer(serializers.ModelSerializer):
+    item_set = ItemSerializer(many=True)
+    class Meta:
+        model = Despensa
+        fields = ['id','item_set']
+
 class ProdutoQuantidadeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProdutoQuantidade
-        fields = ['qtd','produto']
+        fields = ['id','qtd','produto']
 
 class ListaCompraSerializer(serializers.ModelSerializer):
     usuario = serializers.StringRelatedField()
@@ -79,5 +85,5 @@ class ListaCompraSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ListaCompra
-        fields = ['produtoquantidade_set','usuario','destino']
+        fields = ['id','produtoquantidade_set','usuario','destino']
 
