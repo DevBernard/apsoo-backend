@@ -1,7 +1,7 @@
 django
 environs
 djangorestframework
-django-allauth
+djangorestframework-simplejwt
 django-jazzmin
 drf-spectacular
 django-cors-headers

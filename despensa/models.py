@@ -2,9 +2,9 @@ from django.db import models
 from django.db.models import ForeignKey
 from django.utils import timezone
 from django.core.exceptions import ValidationError
+from django.contrib.auth import get_user_model
 
-from account.models import Usuario
-
+Usuario = get_user_model()
     
 
 class Categoria(models.Model):
@@ -31,6 +31,7 @@ class Produto(models.Model):
 class Despensa(models.Model):
     descricao = models.CharField('Descrição Breve',max_length=255)
     categorias = models.ManyToManyField(Categoria) #categorias_permitidas
+    gerente = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
     def __str__(self):
         return self.descricao
 
