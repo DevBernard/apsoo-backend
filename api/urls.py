@@ -5,6 +5,8 @@ from django.urls import path
 from rest_framework_simplejwt import views as jwtViews
 
 urlpatterns = [
+    path('createuser', views.createuser, name='Criação de Usuario'),
+
     path('token',jwtViews.TokenObtainPairView.as_view(), name='Token de Autenticacao'),
     path('token/refresh', jwtViews.TokenRefreshView.as_view(), name='Token Refrescamentos'),
     path('token/verify', jwtViews.TokenVerifyView.as_view(), name='Token Verificações'),

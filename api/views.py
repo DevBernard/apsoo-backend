@@ -1,7 +1,25 @@
 #from django.shortcuts import render
 from rest_framework import generics
-
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+#daqui, por ter importado as models, também joga as models pra cá
 from api.serializers import *
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def createuser(request):
+    email = request.data['email']
+    passwd = request.data['password']
+
+    if (Usuario.objects.filter(email=email).count() > 0):
+        return Response(status=404, data='Já tem esse email cadastrado, bro')
+
+    user = Usuario.objects.create_user(email=email,password=passwd)
+    user.save()
+
+    return Response(status=201, data=f'Usuario f{email} Criado')
+
 
 class ListCategorias(generics.ListCreateAPIView):
     queryset = Categoria.objects.all()

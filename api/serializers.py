@@ -12,6 +12,15 @@ from despensa.models import (
     QuantidadePadrao
 )
 
+from django.contrib.auth import get_user_model
+
+Usuario = get_user_model()
+
+class UsuarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ['email','password']
+
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
