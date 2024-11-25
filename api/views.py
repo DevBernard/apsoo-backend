@@ -13,12 +13,12 @@ def createuser(request):
     passwd = request.data['password']
 
     if (Usuario.objects.filter(email=email).count() > 0):
-        return Response(status=404, data='Já tem esse email cadastrado, bro')
+        return Response(status=404, data={'response':'Já tem esse email cadastrado, bro'})
 
     user = Usuario.objects.create_user(email=email,password=passwd)
     user.save()
 
-    return Response(status=201, data=f'Usuario f{email} Criado')
+    return Response(status=201, data={'response':f'Usuario {email} Criado'})
 
 
 class ListCategorias(generics.ListCreateAPIView):
