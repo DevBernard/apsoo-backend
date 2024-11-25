@@ -1,0 +1,1601 @@
+openapi: 3.0.3
+info:
+  title: Documentando a API do projeto
+  version: 1.0.0
+  description: Um gerenciador de despensas
+paths:
+  /api/categoria/{id}:
+    get:
+      operationId: api_categoria_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+          description: ''
+    put:
+      operationId: api_categoria_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+          description: ''
+    patch:
+      operationId: api_categoria_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoria'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+          description: ''
+    delete:
+      operationId: api_categoria_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/createuser:
+    post:
+      operationId: api_createuser_create
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/despensa-itens/{id}:
+    get:
+      operationId: api_despensa_itens_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DespensaItens'
+          description: ''
+  /api/despensa/{id}:
+    get:
+      operationId: api_despensa_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Despensa'
+          description: ''
+    put:
+      operationId: api_despensa_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Despensa'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Despensa'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Despensa'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Despensa'
+          description: ''
+    patch:
+      operationId: api_despensa_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDespensa'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDespensa'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDespensa'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Despensa'
+          description: ''
+    delete:
+      operationId: api_despensa_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/item/{id}:
+    get:
+      operationId: api_item_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+          description: ''
+    put:
+      operationId: api_item_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Item'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Item'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+          description: ''
+    patch:
+      operationId: api_item_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedItem'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedItem'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedItem'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+          description: ''
+    delete:
+      operationId: api_item_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/list-categorias:
+    get:
+      operationId: api_list_categorias_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categoria'
+          description: ''
+    post:
+      operationId: api_list_categorias_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+          description: ''
+  /api/list-despensas:
+    get:
+      operationId: api_list_despensas_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Despensa'
+          description: ''
+    post:
+      operationId: api_list_despensas_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Despensa'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Despensa'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Despensa'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Despensa'
+          description: ''
+  /api/list-itens:
+    get:
+      operationId: api_list_itens_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+          description: ''
+    post:
+      operationId: api_list_itens_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Item'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Item'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+          description: ''
+  /api/list-lista-compras:
+    get:
+      operationId: api_list_lista_compras_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListaCompra'
+          description: ''
+    post:
+      operationId: api_list_lista_compras_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListaCompra'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ListaCompra'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ListaCompra'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaCompra'
+          description: ''
+  /api/list-marcas:
+    get:
+      operationId: api_list_marcas_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Marca'
+          description: ''
+    post:
+      operationId: api_list_marcas_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Marca'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Marca'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Marca'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Marca'
+          description: ''
+  /api/list-mercados:
+    get:
+      operationId: api_list_mercados_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mercado'
+          description: ''
+    post:
+      operationId: api_list_mercados_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mercado'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Mercado'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Mercado'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mercado'
+          description: ''
+  /api/list-produtos:
+    get:
+      operationId: api_list_produtos_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Produto'
+          description: ''
+    post:
+      operationId: api_list_produtos_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Produto'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Produto'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Produto'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+          description: ''
+  /api/list-quantidades-padrao:
+    get:
+      operationId: api_list_quantidades_padrao_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuantidadePadrao'
+          description: ''
+    post:
+      operationId: api_list_quantidades_padrao_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuantidadePadrao'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/QuantidadePadrao'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/QuantidadePadrao'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuantidadePadrao'
+          description: ''
+  /api/lista-compra/{id}:
+    get:
+      operationId: api_lista_compra_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaCompra'
+          description: ''
+    put:
+      operationId: api_lista_compra_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListaCompra'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ListaCompra'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ListaCompra'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaCompra'
+          description: ''
+    patch:
+      operationId: api_lista_compra_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedListaCompra'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedListaCompra'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedListaCompra'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaCompra'
+          description: ''
+    delete:
+      operationId: api_lista_compra_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/marca/{id}:
+    get:
+      operationId: api_marca_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Marca'
+          description: ''
+    put:
+      operationId: api_marca_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Marca'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Marca'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Marca'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Marca'
+          description: ''
+    patch:
+      operationId: api_marca_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMarca'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMarca'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMarca'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Marca'
+          description: ''
+    delete:
+      operationId: api_marca_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/mercado/{id}:
+    get:
+      operationId: api_mercado_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mercado'
+          description: ''
+    put:
+      operationId: api_mercado_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mercado'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Mercado'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Mercado'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mercado'
+          description: ''
+    patch:
+      operationId: api_mercado_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMercado'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMercado'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMercado'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mercado'
+          description: ''
+    delete:
+      operationId: api_mercado_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/produto/{id}:
+    get:
+      operationId: api_produto_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+          description: ''
+    put:
+      operationId: api_produto_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Produto'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Produto'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Produto'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+          description: ''
+    patch:
+      operationId: api_produto_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProduto'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProduto'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProduto'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Produto'
+          description: ''
+    delete:
+      operationId: api_produto_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/token:
+    post:
+      operationId: api_token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/token/refresh:
+    post:
+      operationId: api_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/token/verify:
+    post:
+      operationId: api_token_verify_create
+      description: |-
+        Takes a token and indicates if it is valid.  This view provides no
+        information about a token's fitness for a particular use.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenVerify'
+          description: ''
+components:
+  schemas:
+    Categoria:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 32
+      required:
+      - id
+      - nome
+    Despensa:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        categorias:
+          type: array
+          items:
+            $ref: '#/components/schemas/Categoria'
+          readOnly: true
+        categorias_ids:
+          type: array
+          items:
+            type: integer
+            writeOnly: true
+          writeOnly: true
+        quantidadepadrao_set:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuantidadePadrao'
+          readOnly: true
+        quantidadepadrao_set_ids:
+          type: array
+          items:
+            type: integer
+            writeOnly: true
+          writeOnly: true
+        descricao:
+          type: string
+          title: Descrição Breve
+          maxLength: 255
+        gerente:
+          type: integer
+          nullable: true
+      required:
+      - categorias
+      - categorias_ids
+      - descricao
+      - id
+      - quantidadepadrao_set
+      - quantidadepadrao_set_ids
+    DespensaItens:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        item_set:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+          readOnly: true
+        item_set_ids:
+          type: array
+          items:
+            type: integer
+            writeOnly: true
+          writeOnly: true
+        descricao:
+          type: string
+          title: Descrição Breve
+          maxLength: 255
+        gerente:
+          type: integer
+          nullable: true
+        categorias:
+          type: array
+          items:
+            type: integer
+      required:
+      - categorias
+      - descricao
+      - id
+      - item_set
+      - item_set_ids
+    Item:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        produto:
+          allOf:
+          - $ref: '#/components/schemas/Produto'
+          readOnly: true
+        mercado:
+          allOf:
+          - $ref: '#/components/schemas/Mercado'
+          readOnly: true
+        produto_id:
+          type: integer
+          writeOnly: true
+        mercado_id:
+          type: integer
+          writeOnly: true
+        comprador:
+          type: string
+          readOnly: true
+        data_vencimento:
+          type: string
+          format: date-time
+          title: Data de Vencimento
+        data_compra:
+          type: string
+          format: date-time
+        preco:
+          type: number
+          format: double
+        consumido:
+          type: boolean
+        despensa:
+          type: integer
+      required:
+      - comprador
+      - data_vencimento
+      - despensa
+      - id
+      - mercado
+      - mercado_id
+      - preco
+      - produto
+      - produto_id
+    ListaCompra:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        usuario:
+          type: string
+          readOnly: true
+        destino:
+          $ref: '#/components/schemas/Despensa'
+        produtoquantidade_set:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProdutoQuantidade'
+          readOnly: true
+        produtoquantidade_set_id:
+          type: array
+          items:
+            type: integer
+            writeOnly: true
+          writeOnly: true
+      required:
+      - destino
+      - id
+      - produtoquantidade_set
+      - produtoquantidade_set_id
+      - usuario
+    Marca:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 50
+      required:
+      - id
+      - nome
+    Mercado:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 50
+      required:
+      - id
+      - nome
+    PatchedCategoria:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 32
+    PatchedDespensa:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        categorias:
+          type: array
+          items:
+            $ref: '#/components/schemas/Categoria'
+          readOnly: true
+        categorias_ids:
+          type: array
+          items:
+            type: integer
+            writeOnly: true
+          writeOnly: true
+        quantidadepadrao_set:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuantidadePadrao'
+          readOnly: true
+        quantidadepadrao_set_ids:
+          type: array
+          items:
+            type: integer
+            writeOnly: true
+          writeOnly: true
+        descricao:
+          type: string
+          title: Descrição Breve
+          maxLength: 255
+        gerente:
+          type: integer
+          nullable: true
+    PatchedItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        produto:
+          allOf:
+          - $ref: '#/components/schemas/Produto'
+          readOnly: true
+        mercado:
+          allOf:
+          - $ref: '#/components/schemas/Mercado'
+          readOnly: true
+        produto_id:
+          type: integer
+          writeOnly: true
+        mercado_id:
+          type: integer
+          writeOnly: true
+        comprador:
+          type: string
+          readOnly: true
+        data_vencimento:
+          type: string
+          format: date-time
+          title: Data de Vencimento
+        data_compra:
+          type: string
+          format: date-time
+        preco:
+          type: number
+          format: double
+        consumido:
+          type: boolean
+        despensa:
+          type: integer
+    PatchedListaCompra:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        usuario:
+          type: string
+          readOnly: true
+        destino:
+          $ref: '#/components/schemas/Despensa'
+        produtoquantidade_set:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProdutoQuantidade'
+          readOnly: true
+        produtoquantidade_set_id:
+          type: array
+          items:
+            type: integer
+            writeOnly: true
+          writeOnly: true
+    PatchedMarca:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 50
+    PatchedMercado:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nome:
+          type: string
+          maxLength: 50
+    PatchedProduto:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        categoria:
+          allOf:
+          - $ref: '#/components/schemas/Categoria'
+          readOnly: true
+        categoria_id:
+          type: integer
+          writeOnly: true
+        prior:
+          $ref: '#/components/schemas/PriorEnum'
+        nome:
+          type: string
+          maxLength: 127
+    PriorEnum:
+      enum:
+      - S1
+      - S2
+      - S3
+      - S4
+      - S5
+      type: string
+      description: |-
+        * `S1` - S1
+        * `S2` - S2
+        * `S3` - S3
+        * `S4` - S4
+        * `S5` - S5
+    Produto:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        categoria:
+          allOf:
+          - $ref: '#/components/schemas/Categoria'
+          readOnly: true
+        categoria_id:
+          type: integer
+          writeOnly: true
+        prior:
+          $ref: '#/components/schemas/PriorEnum'
+        nome:
+          type: string
+          maxLength: 127
+      required:
+      - categoria
+      - categoria_id
+      - id
+      - nome
+      - prior
+    ProdutoQuantidade:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        produto:
+          type: string
+          readOnly: true
+        qtd:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        lista_compra:
+          type: integer
+      required:
+      - id
+      - lista_compra
+      - produto
+      - qtd
+    QuantidadePadrao:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        produto:
+          allOf:
+          - $ref: '#/components/schemas/Produto'
+          readOnly: true
+        produto_id:
+          type: integer
+          writeOnly: true
+        qtd_min:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        qtd_med:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        qtd_max:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        despensa:
+          type: integer
+      required:
+      - despensa
+      - id
+      - produto
+      - produto_id
+    TokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - email
+      - password
+      - refresh
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    TokenVerify:
+      type: object
+      properties:
+        token:
+          type: string
+          writeOnly: true
+      required:
+      - token
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
