@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from despensa.models import (
+    Consumo,
     Categoria,
     Produto,
     Despensa,
@@ -98,3 +99,9 @@ class ListaCompraSerializer(serializers.ModelSerializer):
         model = ListaCompra
         fields = '__all__'#['id','produtoquantidade_set','usuario','destino']
 
+class ConsumoSerializer(serializers.ModelSerializer):
+    item = ItemSerializer()
+    usuario = UsuarioSerializer()
+    class Meta:
+        model = Consumo
+        fields = '__all__'

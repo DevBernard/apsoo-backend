@@ -5,7 +5,7 @@ from django.urls import path
 from rest_framework_simplejwt import views as jwtViews
 
 urlpatterns = [
-    path('createuser', views.createuser, name='Criação de Usuario'),
+    path('createuser', views.CreateUser.as_view(), name='Criação de Usuario'),
 
     path('token',jwtViews.TokenObtainPairView.as_view(), name='Token de Autenticacao'),
     path('token/refresh', jwtViews.TokenRefreshView.as_view(), name='Token Refrescamentos'),
@@ -32,4 +32,7 @@ urlpatterns = [
     path('lista-compra/<int:pk>', views.DetailListaCompra.as_view(), name='Lista de Compras'),
     #path('produto-quantidade', views.DetailProdutoQuantidade.as_view(), name='Quantidade de Produtos das Listas de Compras'),
     #path('quantidade-padrao', views.DetailQuantidadePadrao.as_view(), name='Quantidades Padroes de Itens das Despensa'),
+    path('gerar-lista-compra', views.GerarListaCompra.as_view(), name = 'Lista de Compras Gerada'),
+    path('historico-consumo-usuario', views.DetailConsumoUsuario.as_view(), name='dt con usr'),
+    path('historico-consumo-despensa', views.DetailConsumoDespensa.as_view(), name='dt con dsp'),
 ]

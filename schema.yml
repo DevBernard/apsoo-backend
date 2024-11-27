@@ -230,6 +230,51 @@ paths:
       responses:
         '204':
           description: No response body
+  /api/gerar-lista-compra:
+    get:
+      operationId: api_gerar_lista_compra_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/historico-consumo-despensa:
+    get:
+      operationId: api_historico_consumo_despensa_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Consumo'
+          description: ''
+  /api/historico-consumo-usuario:
+    get:
+      operationId: api_historico_consumo_usuario_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Consumo'
+          description: ''
   /api/item/{id}:
     get:
       operationId: api_item_retrieve
@@ -1146,6 +1191,25 @@ components:
       required:
       - id
       - nome
+    Consumo:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        item:
+          $ref: '#/components/schemas/Item'
+        usuario:
+          $ref: '#/components/schemas/Usuario'
+        data_hora:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - data_hora
+      - id
+      - item
+      - usuario
     Despensa:
       type: object
       properties:
@@ -1537,16 +1601,19 @@ components:
           maximum: 9223372036854775807
           minimum: 0
           format: int64
+          nullable: true
         qtd_med:
           type: integer
           maximum: 9223372036854775807
           minimum: 0
           format: int64
+          nullable: true
         qtd_max:
           type: integer
           maximum: 9223372036854775807
           minimum: 0
           format: int64
+          nullable: true
         despensa:
           type: integer
       required:
@@ -1594,6 +1661,21 @@ components:
           writeOnly: true
       required:
       - token
+    Usuario:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          title: E-mail
+          maxLength: 254
+        password:
+          type: string
+          title: Senha
+          maxLength: 128
+      required:
+      - email
+      - password
   securitySchemes:
     jwtAuth:
       type: http

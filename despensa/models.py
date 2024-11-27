@@ -68,6 +68,9 @@ class Item(models.Model):
         despensa_categorias = self.despensa.categorias
         if not despensa_categorias.filter(id=categoria_id).exists():
             raise ValidationError('A despensa não permite tal Categoria de Produto')
+    
+    def __str__(self):
+        return f'{str(self.produto)} validade: f{str(self.data_vencimento)}'
 
 #models para lista de compras
 class ListaCompra(models.Model):
@@ -90,19 +93,20 @@ class QuantidadePadrao(models.Model):
     class Meta:
         unique_together = ['despensa','produto']
         verbose_name_plural = "Quantidades Padrão"
-    qtd_min = models.PositiveIntegerField( blank=True)
-    qtd_med = models.PositiveIntegerField( blank=True)
-    qtd_max = models.PositiveIntegerField( blank=True)
+    qtd_min = models.PositiveIntegerField( blank=True, null=True)
+    qtd_med = models.PositiveIntegerField( blank=True, null=True)
+    qtd_max = models.PositiveIntegerField( blank=True, null=True)
     despensa = ForeignKey(Despensa, on_delete=models.CASCADE) 
     produto = ForeignKey(Produto, on_delete=models.CASCADE)
 
 #classes de historico
 class Consumo(models.Model):
-    class Meta:
-        unique_together = ['item','usuario']
     data_hora = models.DateTimeField(auto_now_add=True)
     item = ForeignKey(Item, on_delete=models.CASCADE)
     usuario = ForeignKey(Usuario, on_delete=models.SET_NULL, null=True) #deletar o usuario nao implica que o item nao tenha sido consumido
+
+    class Meta:
+        unique_together = ['item','usuario']
 
 class Transferencia(models.Model):
     def clean(self):
