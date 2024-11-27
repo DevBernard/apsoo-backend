@@ -57,7 +57,7 @@ class Item(models.Model):
     consumido = models.BooleanField(default=False)
     produto = ForeignKey(Produto, on_delete=models.PROTECT)
     mercado = ForeignKey(Mercado, on_delete=models.PROTECT)
-    comprador = ForeignKey(Usuario, on_delete=models.PROTECT)
+    comprador = ForeignKey(Usuario, on_delete=models.PROTECT, null=True)
     despensa = ForeignKey(Despensa, on_delete=models.PROTECT)
 
     class Meta:

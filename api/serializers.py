@@ -71,7 +71,7 @@ class ItemSerializer(serializers.ModelSerializer):
     mercado = MercadoSerializer(read_only=True)
     produto_id = serializers.PrimaryKeyRelatedField(write_only=True,queryset=Produto.objects.all(),source='produto')
     mercado_id = serializers.PrimaryKeyRelatedField(write_only=True,queryset=Mercado.objects.all(),source='mercado')
-    comprador = serializers.StringRelatedField()
+    comprador_id = serializers.PrimaryKeyRelatedField(write_only=True,queryset=Usuario.objects.all(),source='comprador')
     class Meta:
         model = Item
         fields = '__all__'
