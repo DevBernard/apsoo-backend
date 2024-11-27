@@ -140,11 +140,6 @@ class GerarListaCompra(APIView):
         for prodqtd in listaObj.produtoquantidade_set.all():
             listaCompra[str(prodqtd.produto)] = prodqtd.qtd
 
-        if c_estoque:
-            for prod in listaCompra:
-                qtd_itens = despensa.item_set.filter(produto__nome=prod).count()
-                listaCompra[prod] -= qtd_itens
-
         #subtraindo da quantidade padrao
         qtd_pad = despensa.quantidadepadrao_set
 
@@ -161,14 +156,19 @@ class GerarListaCompra(APIView):
                     the_qtd_pad_prod = qtd_pad_prod.qtd_med if qtd_pad_prod.qtd_med else the_qtd_pad_prod
                 case _: pass
             if listaCompra[prod] > the_qtd_pad_prod:
-                listaCompra[prod] -= the_qtd_pad_prod
+                listaCompra[prod] = the_qtd_pad_prod
+
+        if c_estoque:
+            for prod in listaCompra:
+                qtd_itens = despensa.item_set.filter(produto__nome=prod).count()
+                listaCompra[prod] -= qtd_itens
 
         for prod in listaCompra.copy().keys():
             if listaCompra[prod] <= 0:
                 listaCompra.pop(prod)
         
         if not listaCompra:
-            listaCompra={'response': 'lista vazia, bro'}
+            listaCompra={'response': 'lista vazia, bro. A despensa já tem os itens necessários nas quantidades solicitadas ou o estoque está cheio'}
             return Response(data=listaCompra, status=200)
             
         listaCompra={'response': listaCompra}
