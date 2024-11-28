@@ -126,7 +126,7 @@ class DetailConsumoDespensa(DetailConsumo):
         return queryset
 
 class GerarListaCompra(APIView):
-    def get(self, request):
+    def post(self, request):
         listaCompra = {}
         req = request.data
 
